@@ -1,10 +1,8 @@
-import java.io.File
 import kotlin.system.exitProcess
-import commands.init
 import java.nio.file.Paths
-import kotlin.io.path.absolute
 
-const val DEBUG = true
+
+const val DEBUG = false
 
 fun main(args: Array<String>) {
     // You can use print statements as follows for debugging, they'll be visible when running tests.

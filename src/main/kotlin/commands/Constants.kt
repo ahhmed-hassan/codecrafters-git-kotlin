@@ -1,4 +1,4 @@
-package commands;
+package commands
 
 import java.nio.file.Path
 import java.nio.file.Paths

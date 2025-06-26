@@ -5,7 +5,7 @@ import java.nio.file.Path
 import java.nio.file.Files
 
 
-    fun init(beginPath: Path): Unit {
+    fun init(beginPath: Path) {
         return try {
             // Create directories
             Files.createDirectories(beginPath.resolve(Constants.OBJECTS_PATH))
