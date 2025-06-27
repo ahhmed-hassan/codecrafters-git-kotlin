@@ -11,7 +11,7 @@ fun <T> convert_result(result: Result<T> , print : Boolean ) : Int{
             1
         },
         onSuccess = {
-            if(print) println(it)
+            if(print) print(it)
             0
         }
     )
