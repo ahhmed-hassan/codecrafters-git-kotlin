@@ -40,7 +40,7 @@ fun main(args: Array<String>) {
         return commands.init(Paths.get("").toAbsolutePath())
     }
     else if(realArgs[0] == "cat-file"){
-        exitProcess(convert_result( commands.cat(realArgs[2], realArgs[3]), print = true))
+        exitProcess(convert_result( commands.cat(realArgs[1], realArgs[2]), print = true))
     }
     else {
         println("Unknown command: ${realArgs[0]}")
