@@ -39,7 +39,7 @@ fun main(args: Array<String>) {
 
         return commands.init(Paths.get("").toAbsolutePath())
     }
-    else if(realArgs[0] == "cat"){
+    else if(realArgs[0] == "cat-file"){
         exitProcess(convert_result( commands.cat(realArgs[2], realArgs[3]), print = true))
     }
     else {
