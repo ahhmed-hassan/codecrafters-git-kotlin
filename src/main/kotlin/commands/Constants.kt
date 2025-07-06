@@ -10,4 +10,5 @@ object Constants
     val OBJECTS_PATH : Path = GIT_DIR /"objects"
     val REFS_PATH: Path = GIT_DIR.resolve("refs")
     val HEAD: Path = GIT_DIR.resolve("HEAD")
+    val SHA1Size : Int = 20
 }

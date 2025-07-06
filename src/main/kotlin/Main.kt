@@ -1,4 +1,5 @@
 
+import commands.LsTree
 import commands.cat
 import commands.hash
 import commands.init
@@ -50,6 +51,12 @@ fun main(args: Array<String>) {
         val writeOption: Boolean = realArgs.contains("-w")
         val res = hash(file,  writeTheObject = writeOption, print = false)
         exitProcess(convertResult(res, print = true))
+    }
+    else if(realArgs[0] == "ls-tree"){
+        val hash = realArgs.last()
+        val namesOnly = realArgs.contains("--name-only")
+        exitProcess(LsTree(hash, namesOnly))
+
     }
     else {
         println("Unknown command: ${realArgs[0]}")
