@@ -29,3 +29,17 @@ It stores some metainfo about the commit like the message and commiter, and main
 <li>The previous commit</li>
 </ui>
 That way, we can traverse the whole history of a git directory. 
+
+# So far so good, but how do you work with remotes ? 
+The communication between clients (sth like our local repo) and servers (like github or gitlab) can be done via different protocols, like http, git or ssh protocol. 
+
+At the high level, we have different histories for each of the client and server. They both negotiate what each of them have, and try to figure out the minimal set of objects to send. 
+
+## git clone 
+The most basic scenario is when the server have some objects and the client have none. The server then sends all available objects to the client. 
+
+At this point the client would populate all the objects to the database and have the exact same history as the server has
+## git pull
+It is essentially the same as **git clone**, but now the client has already some commits, so the server figures out the minimal required commits the client needs (everything after its **HEAD**) then sends them. At this point, it is analouge to the clone process. 
+
+
