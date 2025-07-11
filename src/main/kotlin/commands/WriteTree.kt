@@ -1,6 +1,9 @@
 package commands
 
-import commands.utilities.*
+import commands.utilities.Tree
+import commands.utilities.concatToString
+import commands.utilities.hashAndSave
+import commands.utilities.hexToByteArray
 import java.io.File
 import java.nio.file.FileSystemException
 
@@ -32,7 +35,7 @@ fun writeTreeAndGetHash(pathToTree: File) : Result<String>{
         }
     }
     val treeContent = trees.joinToString(separator = "") {
-      "${it.perm} ${it.name}\u0000${it.shaHash.toHex()}"
+      "${it.perm} ${it.name}\u0000${it.shaHash.concatToString()}"
     }
 
     val fullTreeContent = "tree ${treeContent.length}\u0000${treeContent}"
