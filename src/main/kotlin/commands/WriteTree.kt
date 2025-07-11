@@ -38,7 +38,7 @@ fun writeTreeAndGetHash(pathToTree: File) : Result<String>{
       "${it.perm} ${it.name}\u0000${it.shaHash.concatToString()}"
     }
 
-    val fullTreeContent = "tree ${treeContent.length}\u0000${treeContent}"
+    val fullTreeContent = "tree ${treeContent.toByteArray().size}\u0000${treeContent}"
 
     return hashAndSave(fullTreeContent, save = true)
 }
