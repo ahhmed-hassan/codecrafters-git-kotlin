@@ -19,7 +19,7 @@ fun writeTreeAndGetHash(pathToTree: File) : Result<String>{
         ?.filter {
             //it.name!= ".git" &&(!it.isDirectory || it.listFiles()?.isNotEmpty() == true)
             !it.isDirectory ||
-                    (it.isDirectory &&it.listFiles()?.isNotEmpty() == false  && it.name!=".git")
+                    (it.isDirectory &&it.listFiles()?.isNotEmpty() == true  && it.name!=".git")
         }
         ?.sortedBy { it.name }
         ?: return Result.failure(FileSystemException("Cnnot list files in ${pathToTree.name}"))
