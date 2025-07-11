@@ -39,6 +39,17 @@ fun hashAndSave(toHash: String, save: Boolean = true): Result<String> {
         Result.failure(Exception("Failed to hash and save object: ${e.message}"))
     }
 }
+fun hexToByteArray(hex : String) : ByteArray{
+    val cleanHex = if(hex.startsWith("0x") || hex.startsWith("0X")) hex.substring(2)
+    else hex
+    require(cleanHex.length %2 == 0) {"Hex string must have even length"}
+
+    return ByteArray(cleanHex.length /2 ) { i ->
+        val index = i*2
+        val byteHex = cleanHex.substring(index, index+2)
+        byteHex.toInt(16).toByte()
+    }
+}
 
 data class Tree(
 
@@ -75,6 +86,8 @@ fun ByteArray.indexOf(value: Byte, startIndex: Int = 0): Int {
     }
     return -1
 }
+fun ByteArray.concatToString(): String =
+    String(this, Charsets.ISO_8859_1) // Preserves 1:1 byte mapping
 
 
 

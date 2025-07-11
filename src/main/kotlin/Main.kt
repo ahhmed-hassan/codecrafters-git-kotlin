@@ -1,8 +1,6 @@
 
-import commands.LsTree
-import commands.cat
-import commands.hash
-import commands.init
+import commands.*
+import java.io.File
 import kotlin.system.exitProcess
 import java.nio.file.Paths
 
@@ -55,8 +53,12 @@ fun main(args: Array<String>) {
     else if(realArgs[0] == "ls-tree"){
         val hash = realArgs.last()
         val namesOnly = realArgs.contains("--name-only")
-        exitProcess(LsTree(hash, namesOnly))
+        exitProcess(lsTree(hash, namesOnly))
 
+    }
+    else if (realArgs[0] == "write-tree"){
+        val hash = writeTreeAndGetHash(File("."))
+        exitProcess(convertResult(hash, print = true))
     }
     else {
         println("Unknown command: ${realArgs[0]}")
