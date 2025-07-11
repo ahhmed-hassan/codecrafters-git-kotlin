@@ -108,5 +108,5 @@ fun ByteArray.indexOf(value: Byte, startIndex: Int = 0): Int {
 fun ByteArray.concatToString(): String =
     String(this, Charsets.ISO_8859_1) // Preserves 1:1 byte mapping
 
-
+fun ByteArray.toHex(): String = joinToString("") { "%02x".format(it) }
 
