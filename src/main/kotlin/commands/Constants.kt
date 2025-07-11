@@ -11,4 +11,12 @@ object Constants
     val REFS_PATH: Path = GIT_DIR.resolve("refs")
     val HEAD: Path = GIT_DIR.resolve("HEAD")
     val SHA1Size : Int = 20
+
+    object GitTreeConstants
+    {
+        val REGULAR_FILE : String = "100644"
+        val EXECUTABLE_FILE : String = "100755"
+        val SYMBOL_LINK : String = "120000"
+        val DIRECTORY =  "40000"
+    }
 }

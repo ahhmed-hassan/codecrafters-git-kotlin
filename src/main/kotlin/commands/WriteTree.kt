@@ -30,11 +30,8 @@ fun writeTreeAndGetHash(pathToTree: File) : Result<String>{
 
     val trees : List<Tree> = entryResults.mapNotNull { result ->
         result.getOrNull()?.let { (hash, file) ->
-            Tree(
-                perm = if (file.isDirectory) "40000" else "100644",
-                name = file.name,
-                shaHash = hash
-            )
+
+            Tree(file, hash)
         }
     }
     val treeContent = trees.joinToString(separator = "") {

@@ -4,6 +4,7 @@ import commands.Constants
 import java.io.ByteArrayOutputStream
 import java.util.zip.DeflaterOutputStream
 import java.io.File
+import java.nio.file.Files
 import java.security.MessageDigest
 
 fun sha1Hash(input: String): String {
@@ -75,6 +76,24 @@ data class Tree(
         result = 31 * result + name.hashCode()
         result = 31 * result + shaHash.contentHashCode()
         return result
+    }
+    constructor(de : File, hash: ByteArray ) : this(
+        getMode(de),
+        de.name,
+        hash
+    )
+
+
+    companion object {
+        private fun getMode(file:File ) : String {
+            return when{
+                file.isDirectory -> Constants.GitTreeConstants.DIRECTORY
+                file.isFile -> Constants.GitTreeConstants.REGULAR_FILE
+                Files.isSymbolicLink(file.toPath()) -> Constants.GitTreeConstants.SYMBOL_LINK
+                else -> Constants.GitTreeConstants.EXECUTABLE_FILE
+
+            }
+        }
     }
 }
 fun ByteArray.decodeToString(start: Int, end: Int): String =
