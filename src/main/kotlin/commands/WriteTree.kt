@@ -15,7 +15,12 @@ fun writeTreeAndGetHash(pathToTree: File) : Result<String>{
     }
     val entries = pathToTree
         .listFiles()
-        ?.filter { it.name!= ".git" &&(!it.isDirectory || it.listFiles()?.isNotEmpty() == true) }
+
+        ?.filter {
+            //it.name!= ".git" &&(!it.isDirectory || it.listFiles()?.isNotEmpty() == true)
+            !it.isDirectory ||
+                    (it.isDirectory &&it.listFiles()?.isNotEmpty() == false  && it.name!=".git")
+        }
         ?.sortedBy { it.name }
         ?: return Result.failure(FileSystemException("Cnnot list files in ${pathToTree.name}"))
     data class HashAndEntry (val hash: ByteArray, val file:File)
