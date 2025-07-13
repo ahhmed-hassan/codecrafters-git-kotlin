@@ -39,12 +39,20 @@ fun writeTreeAndGetHash(pathToTree: File) : Result<String>{
             Tree(file, hash)
         }
     }
+    val contentByteArray = trees.flatMap {
+        it.perm.toByteArray().asIterable() +
+                listOf(' '.code.toByte()) +
+                it.name.toByteArray().asIterable() +
+                listOf(0.toByte()) +
+                it.shaHash.toList()
+    }.toByteArray()
     val treeContent = trees.joinToString(separator = "") {
       "${it.perm} ${it.name}\u0000${it.shaHash.concatToString()}"
     }
 
-    val fullTreeContent = "tree ${treeContent.length}\u0000${treeContent}"
+    //val fullTreeContent = "tree ${treeContent.length}\u0000${treeContent}"
+    val fullTreeContent = "tree ${contentByteArray.size}\u0000".toByteArray() + contentByteArray
 
-    return hashAndSave(fullTreeContent, save = true)
+    return hashAndSave(fullTreeContent.concatToString(), save = true)
 }
 
