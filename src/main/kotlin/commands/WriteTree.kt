@@ -39,6 +39,11 @@ fun writeTreeAndGetHash(pathToTree: File) : Result<String>{
             Tree(file, hash)
         }
     }
+    val charset = Charsets.ISO_8859_1
+    val contentBytes = trees.fold(ByteArray(0)){acc, tree ->
+        val header = "${tree.perm} ${tree.name}".toByteArray(charset)
+        acc + header + 0 + tree.shaHash
+    }
     val contentByteArray = trees.flatMap {
         it.perm.toByteArray().asIterable() +
                 listOf(' '.code.toByte()) +
@@ -51,7 +56,7 @@ fun writeTreeAndGetHash(pathToTree: File) : Result<String>{
     }
 
     //val fullTreeContent = "tree ${treeContent.length}\u0000${treeContent}"
-    val fullTreeContent = "tree ${contentByteArray.size}\u0000".toByteArray() + contentByteArray
+    val fullTreeContent = "tree ${contentBytes.size}\u0000".toByteArray() + contentBytes
 
     return hashAndSave(fullTreeContent.concatToString(), save = true)
 }
