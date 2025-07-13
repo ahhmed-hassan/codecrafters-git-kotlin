@@ -1,11 +1,14 @@
 
 import commands.*
+import commands.utilities.ExampleTest
 import java.io.File
 import kotlin.system.exitProcess
 import java.nio.file.Paths
 
 
 const val DEBUG = false
+//TODO : USe kotlin.test
+const val TEST = false
 fun <T> convertResult(result: Result<T>, print : Boolean ) : Int{
     return result.fold(
         onFailure = {
@@ -20,6 +23,7 @@ fun <T> convertResult(result: Result<T>, print : Boolean ) : Int{
 }
 
 fun main(args: Array<String>) {
+    if (TEST) return ExampleTest().allTests()
     // You can use print statements as follows for debugging, they'll be visible when running tests.
     val realArgs: List<String> = if (DEBUG) {
         println("Enter arguments separated by spaces:")
