@@ -34,7 +34,7 @@ fun writeTreeAndGetHash(pathToTree: File) : Result<String>{
         return Result.failure(it.exceptionOrNull()?: Exception("Unknown Error")) }
 
     entryResults.mapNotNull { result: Result<HashAndEntry> -> result.getOrNull() }
-        .filter { it.file.isDirectory }.forEach { println("Directory ${it.file.name}") }
+        .filter { it.file.isDirectory }.forEach { System.err.println("Directory ${it.file.name}") }
 
     val trees : List<Tree> = entryResults.mapNotNull { result ->
         result.getOrNull()?.let { (hash, file) ->
