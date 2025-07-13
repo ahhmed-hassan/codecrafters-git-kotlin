@@ -16,7 +16,7 @@ fun sha1Hash(input: String): String {
 
 fun zlibCompress(input: String): ByteArray {
     val bos = ByteArrayOutputStream()
-    DeflaterOutputStream(bos).use { it.write(input.toByteArray()) }
+    DeflaterOutputStream(bos).use { it.write(input.toByteArray(Charsets.ISO_8859_1)) }
     return bos.toByteArray()
 }
 
