@@ -51,7 +51,7 @@ fun main(args: Array<String>) {
     else if(realArgs[0] == "hash-object"){
         val file = realArgs.last()
         val writeOption: Boolean = realArgs.contains("-w")
-        val res = hash(file,  writeTheObject = writeOption, print = false)
+        val res = hashWithBytes(file,  writeTheObject = writeOption, print = false)
         exitProcess(convertResult(res, print = true))
     }
     else if(realArgs[0] == "ls-tree"){

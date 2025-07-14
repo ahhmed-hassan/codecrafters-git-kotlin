@@ -40,6 +40,40 @@ fun hashAndSave(toHash: String, save: Boolean = true): Result<String> {
         Result.failure(Exception("Failed to hash and save object: ${e.message}"))
     }
 }
+
+// 1. Update hashAndSave to handle ByteArray
+fun hashAndSaveBytes(content: ByteArray, save: Boolean = true): Result<String> {
+    val objectHash = sha1HashBytes(content)
+    val objectDir = Constants.OBJECTS_PATH.resolve(objectHash.take(2)).toFile()
+    val filePath = File(objectDir, objectHash.drop(2))
+
+    return try {
+        objectDir.mkdirs()
+        val compressed = zlibCompressBytes(content)
+
+        if (save) {
+            filePath.outputStream().use { it.write(compressed) }
+        }
+
+        Result.success(objectHash)
+    } catch (e: Exception) {
+        Result.failure(Exception("Failed to hash and save object: ${e.message}"))
+    }
+}
+
+// 2. New helper functions
+fun sha1HashBytes(input: ByteArray): String {
+    val digest = MessageDigest.getInstance("SHA-1")
+    val hashBytes = digest.digest(input)
+    return hashBytes.joinToString("") { "%02x".format(it) }
+}
+
+fun zlibCompressBytes(input: ByteArray): ByteArray {
+    val bos = ByteArrayOutputStream()
+    DeflaterOutputStream(bos).use { it.write(input) }
+    return bos.toByteArray()
+}
+
 fun hexToByteArray(hex : String) : ByteArray{
     val cleanHex = if(hex.startsWith("0x") || hex.startsWith("0X")) hex.substring(2)
     else hex
